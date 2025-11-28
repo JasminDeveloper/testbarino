@@ -12,13 +12,17 @@
   to = "https://uc1t4bgsq3.execute-api.ap-south-1.amazonaws.com/dev/:splat"
   status = 200
   force = true
-  headers = {X-From = "Netlify"}
+  [redirects.headers]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization, X-Requested-With"
 
 [[redirects]]
   # Redirect all other routes to index.html for Flutter routing to work
   from = "/*"
   to = "/index.html"
   status = 200
+  conditions = {path = "!=/api/*"}
 
 [[headers]]
   # Apply these headers to all routes
