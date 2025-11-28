@@ -1,0 +1,42 @@
+[build]
+  # Since this is a pre-built Flutter web app, no build command is needed
+  publish = "."
+  
+  # If you're deploying from a repo where web is a subdirectory, 
+  # uncomment and adjust the line below:
+  # base = "web"
+
+[[redirects]]
+  # Redirect all routes to index.html for Flutter routing to work
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  # Apply these headers to all routes
+  for = "/*"
+  [headers.values]
+    # Enable CORS for the fingerprint SDK
+    Access-Control-Allow-Origin = "*"
+    # Security headers
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer-when-downgrade"
+
+[[headers]]
+  # Cache static assets
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  # Cache JavaScript files
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  # Don't cache the main HTML file
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
